@@ -1,0 +1,31 @@
+<h1>Create New Blog</h1>
+
+<%= form_with scope: :blog, url: blogs_path,  local:true do |form_field| %>
+<!--
+Above 'scope' is for Empty Form(not Filled, as in edit case), 'local:true' is for Submit via Http,
+Default is via Ajax in form_with Helper.
+
+ And for a new record
+   <%#= form_with model: Post.new do |form| %>
+     ...
+   <%# end %>
+ is equivalent to something like:
+   <%#= form_with scope: :post, url: posts_path do |form| %>
+     ...
+   <%# end %>
+
+'blogs_path' => /blogs, 'new_blog_path'=> /blogs/new, 'edit_blog_path'=> /blogs/:id/edit
+-->
+  <p>
+    <%= form_field.label  :title %>
+    <%= form_field.text_field  :title %>
+  </p>
+
+  <p>
+    <%= form_field.label  :description %>
+    <%= form_field.text_area  :description %>
+  </p>
+
+  <%= form_field.submit %> &nbsp;
+  <%= link_to 'Back', blogs_path %>
+<% end %>
