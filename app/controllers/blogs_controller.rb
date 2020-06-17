@@ -1,4 +1,6 @@
 class BlogsController < ApplicationController
+  before_action :setUser, only: [:create]
+
   def show
     #render html: params  Or  plain: params         # As Like, $request->all() in Laravel
     @blogData = Blog.find(params[:id])
@@ -6,7 +8,7 @@ class BlogsController < ApplicationController
     end
 
   def index
-    #render plain: params Or  html: params          # As Like, $request->all() in Laravel
+    #render plain: params Or html: params          # As Like, $request->all() in Laravel
     @allBlogs = Blog.all
     # render  html: @allBlogs.to_json  # To Debug Data
   end
@@ -23,6 +25,7 @@ class BlogsController < ApplicationController
   def create
     # render plain: params.inspect
     @blogSubmit = Blog.new(allowSubmittedParams)
+    @blogSubmit.user = @userObject
     @blogSubmit.save
     # redirect_to blog_path(@blogSubmit)    # In 'blog_path' word, 'blog' is prefix of show(), see in routes
     redirect_to blogs_path
@@ -45,5 +48,9 @@ class BlogsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def allowSubmittedParams
       params.require(:blog).permit(:title, :description)
+    end
+
+    def setUser
+      @userObject = User.find(2)
     end
 end

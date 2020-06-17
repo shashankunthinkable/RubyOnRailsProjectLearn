@@ -12,6 +12,7 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
 
   # RelationShips START
+  has_one   :user_detail
   has_many  :articles
   has_many  :blogs
   # RelationShips END
