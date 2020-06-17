@@ -1,0 +1,29 @@
+<h1>Edit Blog</h1>
+
+<%= form_with(model: @editBlog, local:true) do |form_field| %>
+<!--
+ So when passing such a model record, Rails infers the URL and method.
+   <%#= form_with model: @post do |form| %>
+     ...
+   <%# end %>
+ is then equivalent to something like:
+   <%#= form_with scope: :post, url: post_path(@post), method: :patch do |form| %>
+     ...
+   <%# end %>
+'local:true' is for Submit via Http,
+Default is via Ajax in form_with Helper.
+'blogs_path' => /blogs, 'new_blog_path'=> /blogs/new, 'edit_blog_path'=> /blogs/:id/edit
+-->
+  <p>
+    <%= form_field.label  :title %>
+    <%= form_field.text_field  :title %>
+  </p>
+
+  <p>
+    <%= form_field.label  :description %>
+    <%= form_field.text_area  :description %>
+  </p>
+
+  <%= form_field.submit %> &nbsp;
+  <%= link_to 'Back', blogs_path %>
+<% end %>
